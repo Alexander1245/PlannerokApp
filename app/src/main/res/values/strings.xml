@@ -1,3 +1,12 @@
 <resources>
-    <string name="app_name">PlannerokApp</string>
+    <string name="app_name">Plannerok</string>
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="input_phone_number">Input phone number without country code</string>
+    <string name="login_with_phone_number">Login with phone number</string>
+    <string name="next">Next</string>
+    <string name="input_verification_code_here">Input verification code here</string>
+    <string name="finish">Finish</string>
+    <string name="verification_code">Verification code</string>
+    <string name="invalid_number_format">Invalid number format</string>
+    <string name="please_wait">Please, wait…</string>
 </resources>

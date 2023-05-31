@@ -9,4 +9,6 @@
     <string name="verification_code">Verification code</string>
     <string name="invalid_number_format">Invalid number format</string>
     <string name="please_wait">Please, wait…</string>
+    <string name="code_mask">Code: _ _ _ _ _ _</string>
+    <string name="code_mask_character">_</string>
 </resources>

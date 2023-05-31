@@ -6,6 +6,8 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.navigation.findNavController
+import com.dart69.plannerokapp.R
 import com.dart69.plannerokapp.databinding.FragmentNumberBinding
 import com.dart69.plannerokapp.presentation.core.collectOnStarted
 import com.dart69.plannerokapp.presentation.core.isSkeletonVisible
@@ -26,13 +28,16 @@ class NumberFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) = binding.run {
         super.onViewCreated(view, savedInstanceState)
 
-        countryCodePicker.registerCarrierNumberEditText(editTextPhoneNumber)
-        countryCodePicker.setPhoneNumberValidityChangeListener(viewModel::setPhoneNumberValidity)
-        countryCodePicker.setOnCountryChangeListener {
-            viewModel.selectCountryNameCode(countryCodePicker.selectedCountryNameCode)
+        countryCodePicker.apply {
+            registerCarrierNumberEditText(editTextPhoneNumber)
+            setPhoneNumberValidityChangeListener(viewModel::setPhoneNumberValidity)
+            setOnCountryChangeListener { viewModel.selectCountryNameCode(selectedCountryNameCode) }
+            buttonNext.setOnClickListener {
+                viewModel.next(fullNumberWithPlus)
+                //TODO: Remove
+                findNavController().navigate(R.id.action_numberFragment_to_codeFragment)
+            }
         }
-
-        buttonNext.setOnClickListener { viewModel.next(countryCodePicker.fullNumberWithPlus) }
 
         viewModel.uiState.collectOnStarted(viewLifecycleOwner) { state ->
             buttonNext.isEnabled = state.isButtonNextEnabled

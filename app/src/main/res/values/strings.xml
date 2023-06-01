@@ -11,4 +11,9 @@
     <string name="please_wait">Please, wait…</string>
     <string name="code_mask">Code: _ _ _ _ _ _</string>
     <string name="code_mask_character">_</string>
+    <string name="network_error_title">Network error is occurred</string>
+    <string name="network_is_disabled">Network is disabled. Do you want to enable?</string>
+    <string name="ok">OK</string>
+    <string name="error_1s">Error: %1s</string>
+    <string name="internal_error">Internal error</string>
 </resources>

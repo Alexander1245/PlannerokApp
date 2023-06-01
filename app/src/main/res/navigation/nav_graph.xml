@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/numberFragment"
-        android:name="com.dart69.plannerokapp.presentation.login.number.NumberFragment"
+        android:name="com.dart69.plannerokapp.login.presentation.number.NumberFragment"
         android:label="fragment_number"
         tools:layout="@layout/fragment_number" >
         <action
@@ -16,7 +16,7 @@
     </fragment>
     <fragment
         android:id="@+id/codeFragment"
-        android:name="com.dart69.plannerokapp.presentation.login.code.CodeFragment"
+        android:name="com.dart69.plannerokapp.login.presentation.code.CodeFragment"
         android:label="fragment_code"
         tools:layout="@layout/fragment_code" />
 </navigation>

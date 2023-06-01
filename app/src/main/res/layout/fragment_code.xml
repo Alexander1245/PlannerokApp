@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:padding="@dimen/medium_spacing"
-    tools:context=".presentation.login.code.CodeFragment">
+    tools:context=".login.presentation.code.CodeFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"

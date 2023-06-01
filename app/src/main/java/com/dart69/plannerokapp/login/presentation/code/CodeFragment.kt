@@ -1,4 +1,4 @@
-package com.dart69.plannerokapp.presentation.login.code
+package com.dart69.plannerokapp.login.presentation.code
 
 import android.os.Bundle
 import android.view.LayoutInflater

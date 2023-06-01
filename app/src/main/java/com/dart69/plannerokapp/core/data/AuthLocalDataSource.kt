@@ -3,13 +3,14 @@ package com.dart69.plannerokapp.core.data
 import android.content.SharedPreferences
 import androidx.core.content.edit
 import com.dart69.plannerokapp.core.domain.AuthToken
+import javax.inject.Inject
 
 interface AuthLocalDataSource {
     suspend fun loadAuthToken(): AuthToken?
 
     suspend fun saveAuthToken(token: AuthToken)
 
-    class Implementation(
+    class Implementation @Inject constructor(
         private val sharedPreferences: SharedPreferences
     ) : AuthLocalDataSource {
         override suspend fun loadAuthToken(): AuthToken? {

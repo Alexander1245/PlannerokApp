@@ -6,7 +6,9 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.dart69.plannerokapp.databinding.FragmentCodeBinding
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class CodeFragment : Fragment() {
     private lateinit var binding: FragmentCodeBinding
 

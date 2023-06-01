@@ -7,7 +7,7 @@ import retrofit2.http.Query
 
 interface AuthRemoteDataSource {
 
-    @GET("refresh-token")
+    @GET("/api/v1/users/refresh-token/")
     suspend fun refreshToken(
         @Query("refresh_token") refreshToken: String
     ): Response<TokenDto>

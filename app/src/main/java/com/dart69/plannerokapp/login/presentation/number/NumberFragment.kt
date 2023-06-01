@@ -12,7 +12,9 @@ import com.dart69.mvvm.viewmodels.repeatOnStarted
 import com.dart69.plannerokapp.R
 import com.dart69.plannerokapp.core.presentation.isSkeletonVisible
 import com.dart69.plannerokapp.databinding.FragmentNumberBinding
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class NumberFragment : Fragment(R.layout.fragment_number),
     Screen<FragmentNumberBinding, NumberViewModel> {
     override val binding: FragmentNumberBinding by viewBinding(FragmentNumberBinding::bind)
@@ -50,6 +52,7 @@ class NumberFragment : Fragment(R.layout.fragment_number),
                 if (state.hasSelectedCountryNameCode) {
                     countryCodePicker.setCountryForNameCode(state.countryNameCode)
                 }
+                editTextPhoneNumber.isEnabled = state.isPhoneInputEnabled
                 root.isSkeletonVisible = state.isProgressVisible
             }
         }

@@ -6,12 +6,17 @@ import com.dart69.core.errors.NoNetworkError
 import com.dart69.mvvm.viewmodels.CommunicatorViewModel
 import com.dart69.plannerokapp.R
 import com.dart69.plannerokapp.login.domain.LoginRepository
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
+import java.util.concurrent.atomic.AtomicBoolean
+import javax.inject.Inject
 
-class NumberViewModel(
+@HiltViewModel
+class NumberViewModel @Inject constructor(
     private val repository: LoginRepository,
 ) : CommunicatorViewModel<NumberViewModel.State, NumberEvent>(State()) {
+    private val isCodeAlreadySent = AtomicBoolean(false)
 
     fun selectCountryNameCode(countryName: String) {
         states.update { state ->
@@ -33,8 +38,11 @@ class NumberViewModel(
 
     fun next(phoneNumber: String) {
         performAsync {
-            repository.sendAuthCode(phoneNumber)
-            events.emit(NumberEvent.NavigateToCode)
+            if (isCodeAlreadySent.getAndSet(true) || repository.sendAuthCode(phoneNumber)
+            ) {
+                states.update { it.copy(isPhoneInputEnabled = false) }
+                events.emit(NumberEvent.NavigateToCode)
+            }
         }
     }
 
@@ -59,7 +67,8 @@ class NumberViewModel(
         val hasSelectedCountryNameCode: Boolean = false,
         val countryNameCode: String = "",
         val isButtonNextEnabled: Boolean = false,
-        @StringRes val formatError: Int? = null,
+        @StringRes val formatError: Int? = R.string.invalid_number_format,
         val isProgressVisible: Boolean = false,
+        val isPhoneInputEnabled: Boolean = true,
     )
 }

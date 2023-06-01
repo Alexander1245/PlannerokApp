@@ -1,11 +1,16 @@
 package com.dart69.plannerokapp.login.domain
 
 interface LoginRepository {
-    suspend fun sendAuthCode(phone: String)
 
-    suspend fun verifyAuthCode(authCode: String)
+    /**
+     * @return true if the code was successfully send, false otherwise
+     * */
+    suspend fun sendAuthCode(phone: String): Boolean
 
-    suspend fun login(phone: String, code: String)
+    /**
+     * @return true if the user is registered, false otherwise
+     * */
+    suspend fun verifyIsUserExists(authCode: Int): Boolean
 
-    suspend fun register(phone: String, code: String)
+    suspend fun register(phone: String, name: String, username: String)
 }

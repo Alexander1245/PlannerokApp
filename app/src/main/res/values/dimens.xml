@@ -4,4 +4,6 @@
     <dimen name="huge_title_text_size">34sp</dimen>
     <dimen name="huge_text_size">24sp</dimen>
     <dimen name="small_spacing">8dp</dimen>
+    <dimen name="avatar_size">135dp</dimen>
+    <dimen name="large_spacing">32dp</dimen>
 </resources>

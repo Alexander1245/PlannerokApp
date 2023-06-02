@@ -7,13 +7,14 @@ import androidx.activity.result.ActivityResultLauncher
 import androidx.navigation.NavController
 import com.dart69.mvvm.events.Button
 import com.dart69.mvvm.events.ContextEvent
+import com.dart69.mvvm.events.Event
 import com.dart69.mvvm.events.NavigationEvent
 import com.dart69.mvvm.events.ShowCommonDialog
 import com.dart69.mvvm.events.ShowToast
 import com.dart69.mvvm.strings.asStringResource
 import com.dart69.plannerokapp.R
 
-sealed interface NumberEvent {
+sealed interface NumberEvent : Event {
 
     data class ShowError(
         private val throwable: Throwable
@@ -46,8 +47,12 @@ sealed interface NumberEvent {
         }
     }
 
-    object NavigateToCode : NumberEvent, NavigationEvent {
+    data class NavigateToCode(
+        private val phone: String
+    ) : NumberEvent, NavigationEvent {
         override fun applyOn(navController: NavController) =
-            navController.navigate(R.id.action_numberFragment_to_codeFragment)
+            navController.navigate(
+                NumberFragmentDirections.actionNumberFragmentToCodeFragment(phone)
+            )
     }
 }

@@ -24,7 +24,8 @@
             android:textStyle="bold"
             app:layout_constraintBottom_toTopOf="@+id/inputLayoutPhoneNumber"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <com.hbb20.CountryCodePicker
             android:id="@+id/countryCodePicker"
@@ -35,7 +36,8 @@
             app:ccp_hintExampleNumber="true"
             app:layout_constraintBottom_toBottomOf="@+id/inputLayoutPhoneNumber"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/inputLayoutPhoneNumber" />
+            app:layout_constraintTop_toTopOf="@+id/inputLayoutPhoneNumber"
+            app:layout_constraintVertical_bias="0.5" />
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/inputLayoutPhoneNumber"
@@ -47,10 +49,12 @@
             app:layout_constraintTop_toTopOf="parent">
 
             <com.google.android.material.textfield.TextInputEditText
+                android:padding="@dimen/small_spacing"
                 android:id="@+id/editTextPhoneNumber"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:inputType="phone" />
+                android:inputType="phone"
+                tools:text="14125125" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.button.MaterialButton

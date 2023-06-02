@@ -13,4 +13,9 @@ interface LoginRepository {
     suspend fun verifyIsUserExists(authCode: Int): Boolean
 
     suspend fun register(phone: String, name: String, username: String)
+
+    fun checkCodeValidity(authCode: Int): Boolean
+    companion object {
+        const val CODE_LENGTH = 6
+    }
 }

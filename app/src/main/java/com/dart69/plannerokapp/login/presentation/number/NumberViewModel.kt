@@ -41,7 +41,7 @@ class NumberViewModel @Inject constructor(
             if (isCodeAlreadySent.getAndSet(true) || repository.sendAuthCode(phoneNumber)
             ) {
                 states.update { it.copy(isPhoneInputEnabled = false) }
-                events.emit(NumberEvent.NavigateToCode)
+                events.emit(NumberEvent.NavigateToCode(phoneNumber))
             }
         }
     }

@@ -16,4 +16,11 @@
     <string name="ok">OK</string>
     <string name="error_1s">Error: %1s</string>
     <string name="internal_error">Internal error</string>
+    <string name="registration">Registration</string>
+    <string name="phone_number">Phone number</string>
+    <string name="name">Name</string>
+    <string name="username">Username</string>
+    <string name="register">Register</string>
+    <string name="username_limits">Username can consists of up to %1d english letters, %2d digits, %3d underscores</string>
+    <string name="name_limits">Name must consists of up to %1d letters</string>
 </resources>

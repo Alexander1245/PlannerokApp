@@ -10,7 +10,7 @@ import by.kirich1409.viewbindingdelegate.viewBinding
 import com.dart69.mvvm.screens.Screen
 import com.dart69.mvvm.viewmodels.repeatOnStarted
 import com.dart69.plannerokapp.R
-import com.dart69.plannerokapp.core.presentation.isSkeletonVisible
+import com.dart69.plannerokapp.core.isSkeletonVisible
 import com.dart69.plannerokapp.databinding.FragmentNumberBinding
 import dagger.hilt.android.AndroidEntryPoint
 

@@ -6,6 +6,7 @@ import com.dart69.core.coroutines.DispatchersProvider
 import com.dart69.plannerokapp.core.data.AuthLocalDataSource
 import com.dart69.plannerokapp.core.data.AuthRemoteDataSource
 import com.dart69.plannerokapp.core.data.AuthRepositoryImpl
+import com.dart69.plannerokapp.core.data.JWTAuthenticator
 import com.dart69.plannerokapp.core.data.TokenChecker
 import com.dart69.plannerokapp.core.data.TokenMapper
 import com.dart69.plannerokapp.core.domain.AuthRepository
@@ -14,6 +15,7 @@ import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
+import okhttp3.Authenticator
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
@@ -29,8 +31,11 @@ object CoreModule {
     fun provideDispatchers(): DispatchersProvider = DispatchersProvider()
 
     @Provides
-    fun provideOkHttpClient(): OkHttpClient =
+    fun provideOkHttpClient(
+        authenticator: Authenticator,
+    ): OkHttpClient =
         OkHttpClient.Builder()
+            .authenticator(authenticator)
             .addNetworkInterceptor {
                 it.proceed(
                     it.request()
@@ -72,5 +77,13 @@ object CoreModule {
 
     @Provides
     @Singleton
-    fun provideRepository(impl: AuthRepositoryImpl): AuthRepository = impl
+    fun provideRepository(impl: AuthRepositoryImpl): AuthRepository = impl.also { repository ->
+        AuthRepository.Holder.initialize(repository)
+    }
+
+    @Provides
+    fun provideHolder(): AuthRepository.Holder = AuthRepository.Holder
+
+    @Provides
+    fun provideAuthenticator(impl: JWTAuthenticator): Authenticator = impl
 }

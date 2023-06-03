@@ -1,7 +1,7 @@
 package com.dart69.plannerokapp.login.data
 
 import com.dart69.core.mapper.Mapper
-import com.dart69.plannerokapp.core.domain.AuthToken
+import com.dart69.plannerokapp.auth.domain.AuthToken
 import com.dart69.plannerokapp.login.data.models.LoginUserCredentialsDto
 import com.dart69.plannerokapp.login.data.models.RegisterUserCredentialsDto
 

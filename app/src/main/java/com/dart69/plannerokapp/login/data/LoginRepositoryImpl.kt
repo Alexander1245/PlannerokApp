@@ -2,7 +2,7 @@ package com.dart69.plannerokapp.login.data
 
 import com.dart69.core.coroutines.DispatchersProvider
 import com.dart69.data.response.wrapper.ResponseWrapper
-import com.dart69.plannerokapp.core.domain.AuthRepository
+import com.dart69.plannerokapp.auth.domain.AuthRepository
 import com.dart69.plannerokapp.core.length
 import com.dart69.plannerokapp.login.data.models.LoginDto
 import com.dart69.plannerokapp.login.data.models.PhoneDto

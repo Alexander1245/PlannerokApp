@@ -1,8 +1,8 @@
-package com.dart69.plannerokapp.core.data
+package com.dart69.plannerokapp.auth.data
 
 import android.content.SharedPreferences
 import androidx.core.content.edit
-import com.dart69.plannerokapp.core.domain.AuthToken
+import com.dart69.plannerokapp.auth.domain.AuthToken
 import javax.inject.Inject
 
 interface AuthLocalDataSource {

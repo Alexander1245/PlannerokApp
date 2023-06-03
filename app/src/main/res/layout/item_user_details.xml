@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_margin="@dimen/small_spacing">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:padding="@dimen/large_spacing">
+
+        <TextView
+            android:id="@+id/textViewCity"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/small_spacing"
+            android:drawablePadding="@dimen/large_spacing"
+            android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6"
+            app:drawableLeftCompat="@drawable/ic_city"
+            tools:text="London" />
+
+        <TextView
+            android:id="@+id/textViewBirthDate"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/small_spacing"
+            android:drawablePadding="@dimen/large_spacing"
+            android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6"
+            app:drawableLeftCompat="@drawable/ic_birth_date"
+            tools:text="22.02.2002" />
+
+        <TextView
+            android:id="@+id/textViewZodiac"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/large_spacing"
+            android:drawablePadding="@dimen/large_spacing"
+            android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6"
+            app:drawableLeftCompat="@drawable/ic_zodiac"
+            tools:text="Scorpion" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/about_me"
+            android:textAppearance="@style/TextAppearance.MaterialComponents.Overline" />
+
+        <TextView
+            android:id="@+id/textViewAboutMe"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
+            tools:text="Lorem ipsum" />
+
+    </LinearLayout>
+
+</com.google.android.material.card.MaterialCardView>

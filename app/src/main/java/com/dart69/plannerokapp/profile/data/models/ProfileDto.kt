@@ -1,8 +1,8 @@
 package com.dart69.plannerokapp.profile.data.models
 
-data class ProfileData(
+data class ProfileDto(
     val avatar: String?,
-    val avatars: String?,
+    val avatars: List<AvatarDto>?,
     val birthday: String?,
     val city: String?,
     val completed_task: Int,

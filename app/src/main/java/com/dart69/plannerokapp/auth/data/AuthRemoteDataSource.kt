@@ -1,6 +1,6 @@
-package com.dart69.plannerokapp.core.data
+package com.dart69.plannerokapp.auth.data
 
-import com.dart69.plannerokapp.core.data.models.TokenDto
+import com.dart69.plannerokapp.auth.data.models.TokenDto
 import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Query

@@ -1,6 +1,7 @@
 package com.dart69.plannerokapp.core.data
 
-import com.dart69.plannerokapp.core.data.models.TokenDto
+import com.dart69.plannerokapp.auth.data.AuthRemoteDataSource
+import com.dart69.plannerokapp.auth.data.models.TokenDto
 import retrofit2.Response
 import java.util.concurrent.atomic.AtomicInteger
 

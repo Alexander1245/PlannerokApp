@@ -23,4 +23,21 @@
     <string name="register">Register</string>
     <string name="username_limits">Username can consists of up to %1d english letters, %2d digits, %3d underscores</string>
     <string name="name_limits">Name must consists of up to %1d letters</string>
+    <string name="edit">Edit</string>
+    <string name="profile">Profile</string>
+    <string name="about_me">About me</string>
+
+
+    <string name="aquarius">Aquarius</string>
+    <string name="pisces">Pisces</string>
+    <string name="aries">Aries</string>
+    <string name="taurus">Taurus</string>
+    <string name="gemini">Gemini</string>
+    <string name="cancer">Cancer</string>
+    <string name="leo">Leo</string>
+    <string name="virgo">Virgo</string>
+    <string name="libra">Libra</string>
+    <string name="scorpio">Scorpio</string>
+    <string name="sagittarius">Sagittarius</string>
+    <string name="capricorn">Capricorn</string>
 </resources>

@@ -1,9 +1,9 @@
-package com.dart69.plannerokapp.core.data
+package com.dart69.plannerokapp.auth.data
 
 import com.dart69.core.coroutines.DispatchersProvider
 import com.dart69.data.response.wrapper.ResponseWrapper
-import com.dart69.plannerokapp.core.domain.AuthRepository
-import com.dart69.plannerokapp.core.domain.AuthToken
+import com.dart69.plannerokapp.auth.domain.AuthRepository
+import com.dart69.plannerokapp.auth.domain.AuthToken
 import kotlinx.coroutines.sync.Mutex
 import kotlinx.coroutines.sync.withLock
 import kotlinx.coroutines.withContext

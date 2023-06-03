@@ -1,4 +1,4 @@
-package com.dart69.plannerokapp.core.data.models
+package com.dart69.plannerokapp.auth.data.models
 
 data class TokenDto(
     val refresh_token: String,

@@ -1,4 +1,4 @@
-package com.dart69.plannerokapp.core.domain
+package com.dart69.plannerokapp.auth.domain
 
 interface AuthRepository {
     suspend fun loadTokens(): AuthToken
@@ -11,7 +11,7 @@ interface AuthRepository {
     object Holder : AuthRepository {
         private lateinit var repository: AuthRepository
         fun initialize(repository: AuthRepository) {
-            this.repository = repository
+            Holder.repository = repository
         }
 
         override suspend fun loadTokens(): AuthToken = repository.loadTokens()

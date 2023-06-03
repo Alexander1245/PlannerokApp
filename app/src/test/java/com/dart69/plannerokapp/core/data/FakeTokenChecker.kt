@@ -1,6 +1,7 @@
 package com.dart69.plannerokapp.core.data
 
-import com.dart69.plannerokapp.core.domain.AuthToken
+import com.dart69.plannerokapp.auth.data.TokenChecker
+import com.dart69.plannerokapp.auth.domain.AuthToken
 
 class FakeTokenChecker : TokenChecker {
 

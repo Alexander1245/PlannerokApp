@@ -21,7 +21,7 @@ sealed interface RegisterEvent : Event {
 
     object NavigateToProfile : RegisterEvent, NavigationEvent {
         override fun applyOn(navController: NavController) {
-            TODO("Not yet implemented")
+            navController.navigate(RegisterFragmentDirections.actionRegisterFragmentToProfileFragment())
         }
     }
 }

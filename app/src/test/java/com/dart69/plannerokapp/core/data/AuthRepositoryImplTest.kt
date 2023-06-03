@@ -2,6 +2,8 @@ package com.dart69.plannerokapp.core.data
 
 import com.dart69.core.coroutines.DispatchersProvider
 import com.dart69.data.response.wrapper.ResponseWrapperImpl
+import com.dart69.plannerokapp.auth.data.AuthRepositoryImpl
+import com.dart69.plannerokapp.auth.data.TokenMapper
 import kotlinx.coroutines.async
 import kotlinx.coroutines.runBlocking
 import org.junit.Assert.assertEquals

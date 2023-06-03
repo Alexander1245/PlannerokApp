@@ -41,7 +41,6 @@ android {
 dependencies {
     def nav_version = "2.5.3"
     def retrofit_version = "2.9.0"
-    def room_version = "2.5.1"
     def my_mvvm_lib_version = "1.0.3"
     def jwt_version = "0.8.0"
     def hilt_version = "2.44"
@@ -65,8 +64,7 @@ dependencies {
     implementation "com.squareup.retrofit2:retrofit:$retrofit_version"
     implementation "com.squareup.retrofit2:converter-gson:$retrofit_version"
 
-    implementation "androidx.room:room-runtime:$room_version"
-    kapt "androidx.room:room-compiler:$room_version"
+    implementation "androidx.datastore:datastore-preferences:1.0.0"
 
     implementation "com.github.Alexander1245.BaseMVVM:presentation:$my_mvvm_lib_version"
     implementation "com.github.Alexander1245.BaseMVVM:domain:$my_mvvm_lib_version"
@@ -78,6 +76,8 @@ dependencies {
 
     implementation "com.google.dagger:hilt-android:$hilt_version"
     kapt "com.google.dagger:hilt-compiler:$hilt_version"
+
+    implementation("io.coil-kt:coil:2.4.0")
 }
 
 kapt {

@@ -1,4 +1,4 @@
-package com.dart69.plannerokapp.core.domain
+package com.dart69.plannerokapp.auth.domain
 
 data class AuthToken(
     val refreshToken: String,

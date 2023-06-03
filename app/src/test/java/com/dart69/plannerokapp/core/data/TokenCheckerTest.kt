@@ -1,6 +1,7 @@
 package com.dart69.plannerokapp.core.data
 
-import com.dart69.plannerokapp.core.domain.AuthToken
+import com.dart69.plannerokapp.auth.data.TokenChecker
+import com.dart69.plannerokapp.auth.domain.AuthToken
 import io.github.nefilim.kjwt.JWT
 import junit.framework.TestCase.assertFalse
 import junit.framework.TestCase.assertTrue

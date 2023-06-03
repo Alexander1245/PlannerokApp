@@ -25,6 +25,11 @@
         <argument
             android:name="phone"
             app:argType="string" />
+        <action
+            android:id="@+id/action_codeFragment_to_profileFragment"
+            app:destination="@id/profileFragment"
+            app:popUpTo="@id/numberFragment"
+            app:popUpToInclusive="true" />
     </fragment>
     <fragment
         android:id="@+id/registerFragment"
@@ -34,5 +39,15 @@
         <argument
             android:name="phone"
             app:argType="string" />
+        <action
+            android:id="@+id/action_registerFragment_to_profileFragment"
+            app:destination="@id/profileFragment"
+            app:popUpTo="@id/numberFragment"
+            app:popUpToInclusive="true" />
     </fragment>
+    <fragment
+        android:id="@+id/profileFragment"
+        android:name="com.dart69.plannerokapp.profile.presentation.ProfileFragment"
+        android:label="fragment_profile"
+        tools:layout="@layout/fragment_profile" />
 </navigation>

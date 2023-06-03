@@ -1,8 +1,8 @@
-package com.dart69.plannerokapp.core.data
+package com.dart69.plannerokapp.auth.data
 
 import com.dart69.core.mapper.Mapper
-import com.dart69.plannerokapp.core.data.models.TokenDto
-import com.dart69.plannerokapp.core.domain.AuthToken
+import com.dart69.plannerokapp.auth.data.models.TokenDto
+import com.dart69.plannerokapp.auth.domain.AuthToken
 
 fun interface TokenMapper : Mapper<TokenDto, AuthToken> {
 

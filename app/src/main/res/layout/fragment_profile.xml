@@ -1,12 +1,40 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<com.faltenreich.skeletonlayout.SkeletonLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context=".profile.presentation.ProfileFragment">
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerViewContent"
+    <ScrollView
+        android:id="@+id/scrollView"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
-</FrameLayout>
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <com.google.android.material.appbar.MaterialToolbar
+                android:id="@+id/toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="?attr/colorPrimary"
+                app:menu="@menu/profile_menu"
+                app:title="@string/profile"
+                app:titleCentered="true"
+                app:titleTextAppearance="@style/TextAppearance.MaterialComponents.Headline5"
+                app:titleTextColor="?attr/colorOnPrimary" />
+
+            <include
+                android:id="@+id/header"
+                layout="@layout/item_user_header" />
+
+            <include
+                android:id="@+id/details"
+                layout="@layout/item_user_details" />
+        </LinearLayout>
+    </ScrollView>
+</com.faltenreich.skeletonlayout.SkeletonLayout>

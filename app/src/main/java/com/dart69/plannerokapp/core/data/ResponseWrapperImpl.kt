@@ -3,7 +3,7 @@ package com.dart69.plannerokapp.core.data
 import com.dart69.core.errors.NetworkTimeOutError
 import com.dart69.core.errors.NoNetworkError
 import com.dart69.data.response.wrapper.ResponseWrapper
-import com.dart69.plannerokapp.core.domain.ErrorMessage
+import com.dart69.plannerokapp.auth.domain.ErrorMessage
 import retrofit2.Response
 import java.net.SocketTimeoutException
 import java.net.UnknownHostException

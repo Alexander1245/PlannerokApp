@@ -20,7 +20,7 @@ interface CodeEvent : Event {
 
     object NavigateToProfile : CodeEvent, NavigationEvent {
         override fun applyOn(navController: NavController) {
-            TODO()
+            navController.navigate(CodeFragmentDirections.actionCodeFragmentToProfileFragment())
         }
     }
 

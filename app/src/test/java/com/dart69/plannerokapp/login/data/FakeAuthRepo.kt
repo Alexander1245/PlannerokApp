@@ -1,8 +1,8 @@
 package com.dart69.plannerokapp.login.data
 
 import com.dart69.plannerokapp.core.data.FakeTokenChecker
-import com.dart69.plannerokapp.core.domain.AuthRepository
-import com.dart69.plannerokapp.core.domain.AuthToken
+import com.dart69.plannerokapp.auth.domain.AuthRepository
+import com.dart69.plannerokapp.auth.domain.AuthToken
 
 class FakeAuthRepo : AuthRepository {
     @Volatile

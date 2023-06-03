@@ -1,6 +1,6 @@
-package com.dart69.plannerokapp.core.data
+package com.dart69.plannerokapp.auth.data
 
-import com.dart69.plannerokapp.core.domain.AuthRepository
+import com.dart69.plannerokapp.auth.domain.AuthRepository
 import kotlinx.coroutines.runBlocking
 import okhttp3.Authenticator
 import okhttp3.Request
@@ -14,7 +14,7 @@ class JWTAuthenticator @Inject constructor(
     override fun authenticate(route: Route?, response: Response): Request? {
         if (response.header(HEADER_NAME) != null) return null
         val accessToken = runBlocking { authRepository.loadTokens().accessToken }
-        return response.request().newBuilder()
+        return response.request.newBuilder()
             .header(HEADER_NAME, "$TOKEN_TYPE $accessToken")
             .build()
     }

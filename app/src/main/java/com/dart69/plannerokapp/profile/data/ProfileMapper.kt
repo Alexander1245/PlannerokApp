@@ -1,7 +1,7 @@
 package com.dart69.plannerokapp.profile.data
 
 import com.dart69.core.mapper.Mapper
-import com.dart69.plannerokapp.core.toDateString
+import com.dart69.plannerokapp.core.toEpoch
 import com.dart69.plannerokapp.profile.data.models.AvatarRequest
 import com.dart69.plannerokapp.profile.data.models.ProfileDto
 import com.dart69.plannerokapp.profile.data.models.UpdateRequest
@@ -19,29 +19,33 @@ interface ProfileMapper : Mapper<ProfileDto, Profile> {
 
     class Implementation @Inject constructor(
         private val zodiacSignProvider: ZodiacSignProvider,
-        private val dateFormatter: DateFormatter,
         private val encoder: ImageEncoder,
     ) : ProfileMapper {
         override fun map(from: ProfileDto): Profile {
-            val birthDate = from.birthday?.let(dateFormatter::format)
-            val zodiacSign = birthDate?.let(zodiacSignProvider::provide)
+            val epoch = from.birthday?.toEpoch()
+            val zodiacSign = epoch?.let(zodiacSignProvider::provide)
             return Profile(
                 id = from.id,
-                avatarUrl = from.avatar,
                 phone = from.phone,
-                username = from.username,
-                city = from.city,
+                details = ProfileDetails(
+                    avatarUri = from.avatar,
+                    username = from.username,
+                    city = from.city,
+                    birthdate = from.birthday,
+                    aboutMe = from.status,
+                    instagram = from.instagram,
+                    name = from.name,
+                    vk = from.vk
+                ),
                 zodiacSign = zodiacSign,
-                birthDate = birthDate,
-                aboutMe = from.status,
-            )
+                )
         }
 
         override fun toDetails(dto: ProfileDto): ProfileDetails =
             ProfileDetails(
                 name = dto.name,
                 username = dto.username,
-                birthdate = dto.birthday?.let(dateFormatter::format),
+                birthdate = dto.birthday,
                 city = dto.city,
                 vk = dto.vk,
                 instagram = dto.instagram,
@@ -55,16 +59,16 @@ interface ProfileMapper : Mapper<ProfileDto, Profile> {
                 name = details.name,
                 vk = details.vk,
                 instagram = details.instagram,
-                birthday = details.birthdate?.toDateString(),
+                birthday = details.birthdate,
                 city = details.city,
                 status = details.aboutMe,
             )
 
         override fun toRequest(details: ProfileDetails): UpdateRequest {
-            val data = encoder.toBase64(details.avatarUri)
+            val data = details.avatarUri?.let(encoder::toBase64)
             return UpdateRequest(
-                avatar = AvatarRequest.from(base_64 = data.base64, filename = data.name),
-                birthday = details.birthdate?.toDateString(),
+                avatar = AvatarRequest.from(base_64 = data?.base64, filename = data?.name),
+                birthday = details.birthdate,
                 city = details.city,
                 instagram = details.instagram,
                 name = details.name,

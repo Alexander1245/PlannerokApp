@@ -1,10 +1,12 @@
 package com.dart69.plannerokapp.profile.presentation
 
 import androidx.annotation.StringRes
+import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.viewModelScope
 import com.dart69.mvvm.events.ContextEvent
 import com.dart69.mvvm.viewmodels.CommunicatorViewModel
 import com.dart69.plannerokapp.R
+import com.dart69.plannerokapp.core.toDateString
 import com.dart69.plannerokapp.login.presentation.number.NumberEvent
 import com.dart69.plannerokapp.profile.domain.ProfileRepository
 import com.dart69.plannerokapp.profile.domain.models.ProfileDetails
@@ -16,13 +18,18 @@ import javax.inject.Inject
 
 @HiltViewModel
 class EditProfileViewModel @Inject constructor(
-    private val repository: ProfileRepository,
     private val matcher: UserCredentialsMatcher,
+    private val repository: ProfileRepository,
+    savedStateHandle: SavedStateHandle,
 ) : CommunicatorViewModel<EditProfileViewModel.State, ContextEvent>(State()) {
 
     init {
-        performAsync {
-            states.update { it.copy(details = repository.getProfileDetails()) }
+        states.update {
+            it.copy(
+                details = EditProfileFragmentArgs.fromSavedStateHandle(
+                    savedStateHandle
+                ).details
+            )
         }
     }
 
@@ -52,7 +59,7 @@ class EditProfileViewModel @Inject constructor(
     }
 
     fun updateBirthdate(epoch: Long) {
-        states.update { it.copy(details = it.details.copy(birthdate = epoch)) }
+        states.update { it.copy(details = it.details.copy(birthdate = epoch.toDateString())) }
     }
 
     fun updateAboutMe(aboutMe: String) {

@@ -4,7 +4,6 @@ import android.content.Context
 import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.preferencesDataStore
-import com.dart69.plannerokapp.profile.data.DateFormatter
 import com.dart69.plannerokapp.profile.data.ImageEncoder
 import com.dart69.plannerokapp.profile.data.ProfileLocalDataSource
 import com.dart69.plannerokapp.profile.data.ProfileMapper
@@ -40,15 +39,12 @@ object ProfileModule {
     fun provideSignProvider(impl: ZodiacSignProvider.Implementation): ZodiacSignProvider = impl
 
     @Provides
-    fun provideDateFormatter(): DateFormatter = DateFormatter.Implementation()
-
-    @Provides
     fun provideMapper(impl: ProfileMapper.Implementation): ProfileMapper = impl
 
     @Provides
     fun provideEncoder(
-        @ApplicationContext context: Context,
-    ): ImageEncoder = ImageEncoder.Implementation(JPEG_QUALITY, context)
+        impl: ImageEncoder.Implementation
+    ): ImageEncoder = impl
 
     @Provides
     fun provideLocalDataSource(

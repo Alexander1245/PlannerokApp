@@ -18,7 +18,7 @@ import javax.inject.Inject
 @HiltViewModel
 class ProfileViewModel @Inject constructor(
     private val repository: ProfileRepository,
-) : CommunicatorViewModel<ProfileViewModel.State, ContextEvent>(State()) {
+) : CommunicatorViewModel<ProfileViewModel.State, ProfileEvent>(State()) {
     private val isProgressVisible = MutableStateFlow(false)
     private val profile = MutableStateFlow<Profile?>(null)
 
@@ -33,12 +33,16 @@ class ProfileViewModel @Inject constructor(
         }.onEach(states::emit).launchIn(viewModelScope)
     }
 
+    fun editProfile() {
+        events.launch(ProfileEvent.EditProfile(profile.value!!.details))
+    }
+
     private suspend fun performAsync(block: suspend () -> Unit) {
         try {
             isProgressVisible.value = true
             block()
         } catch (throwable: Throwable) {
-            events.emit(NumberEvent.ShowError(throwable))
+            events.emit(ProfileEvent.ShowError(throwable))
         } finally {
             isProgressVisible.value = false
         }

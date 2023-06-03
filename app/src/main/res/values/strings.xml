@@ -47,4 +47,5 @@
     <string name="vk">VK</string>
     <string name="birthdate">Birthdate</string>
     <string name="name_invalid">Name is incorrect</string>
+    <string name="click_here_to_edit_birthdate">Click here to edit birthdate</string>
 </resources>

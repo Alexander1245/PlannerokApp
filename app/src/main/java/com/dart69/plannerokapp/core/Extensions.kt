@@ -29,7 +29,7 @@ fun Char.isHyphenOrUnderscore(): Boolean = this in "_-"
 
 fun Char.isEnglishLetter(): Boolean = this in 'a'..'z' || this in 'A'..'Z'
 
-fun StringResource.orNull(): StringResource? = if(this is StringResource.Empty) null else this
+fun StringResource.orNull(): StringResource? = if (this is StringResource.Empty) null else this
 
 fun TextView.setVisibleText(@StringRes resId: Int?) {
     val text = resId ?: R.string.unknown
@@ -40,9 +40,14 @@ fun TextView.setVisibleText(text: String?) {
     text?.let(this::setText) ?: setText(R.string.unknown)
 }
 
-fun Long.toDateString(): String {
-    val format = SimpleDateFormat("dd MMMM, yyyy", Locale.getDefault())
+fun Long.toDateString(pattern: String = "yyyy-MM-dd"): String {
+    val format = SimpleDateFormat(pattern, Locale.getDefault())
     return format.format(Date(this))
+}
+
+fun String.toEpoch(pattern: String = "yyyy-MM-dd"): Long {
+    val format = SimpleDateFormat(pattern, Locale.getDefault())
+    return requireNotNull(format.parse(this)?.time)
 }
 
 fun EditText.addListener(listener: (String) -> Unit) {

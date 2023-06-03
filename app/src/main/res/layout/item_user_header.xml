@@ -12,6 +12,7 @@
 
         <com.google.android.material.imageview.ShapeableImageView
             android:id="@+id/imageViewAvatar"
+            android:scaleType="centerCrop"
             android:layout_width="@dimen/avatar_size"
             android:layout_height="@dimen/avatar_size"
             app:layout_constraintStart_toStartOf="parent"

@@ -11,7 +11,6 @@ import com.dart69.mvvm.screens.Screen
 import com.dart69.mvvm.viewmodels.repeatOnStarted
 import com.dart69.plannerokapp.R
 import com.dart69.plannerokapp.core.setVisibleText
-import com.dart69.plannerokapp.core.toDateString
 import com.dart69.plannerokapp.databinding.FragmentProfileBinding
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -25,7 +24,7 @@ class ProfileFragment : Fragment(R.layout.fragment_profile),
         super.onViewCreated(view, savedInstanceState)
 
         toolbar.setOnMenuItemClickListener {
-            findNavController().navigate(ProfileFragmentDirections.actionProfileFragmentToEditProfileFragment())
+            viewModel.editProfile()
             true
         }
 
@@ -33,20 +32,23 @@ class ProfileFragment : Fragment(R.layout.fragment_profile),
             viewModel.collectStates { state ->
                 state.profile ?: return@collectStates
                 header.textViewPhone.text = state.profile.phone
-                header.textViewUsername.text = state.profile.username
-                header.imageViewAvatar.load(state.profile.avatarUrl) {
+                header.textViewUsername.text = state.profile.details.username
+                header.imageViewAvatar.load(state.profile.details.avatarUri) {
                     error(R.drawable.no_avatar_image)
                 }
-                details.textViewCity.setVisibleText(state.profile.city)
+                details.textViewCity.setVisibleText(state.profile.details.city)
                 details.textViewZodiac.setVisibleText(state.profile.zodiacSign)
-                details.textViewBirthDate.setVisibleText(state.profile.birthDate?.toDateString())
-                details.textViewAboutMe.setVisibleText(state.profile.aboutMe)
+                details.textViewBirthDate.setVisibleText(state.profile.details.birthdate)
+                details.textViewAboutMe.setVisibleText(state.profile.details.aboutMe)
             }
         }
 
         repeatOnStarted(viewLifecycleOwner) {
-            viewModel.collectEvents {
-                    event -> event.applyOn(requireContext())
+            viewModel.collectEvents { event ->
+                when(event) {
+                    is ProfileEvent.EditProfile -> event.applyOn(findNavController())
+                    is ProfileEvent.ShowError -> event.applyOn(requireContext())
+                }
             }
         }
 

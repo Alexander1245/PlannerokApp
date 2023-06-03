@@ -65,5 +65,9 @@
         android:id="@+id/editProfileFragment"
         android:name="com.dart69.plannerokapp.profile.presentation.EditProfileFragment"
         android:label="fragment_edit_profile"
-        tools:layout="@layout/fragment_edit_profile" />
+        tools:layout="@layout/fragment_edit_profile" >
+        <argument
+            android:name="details"
+            app:argType="com.dart69.plannerokapp.profile.domain.models.ProfileDetails" />
+    </fragment>
 </navigation>

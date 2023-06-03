@@ -1,6 +1,7 @@
 package com.dart69.plannerokapp.profile.presentation
 
 import android.app.DatePickerDialog
+import android.net.Uri
 import android.os.Bundle
 import android.view.View
 import androidx.activity.result.PickVisualMediaRequest
@@ -9,15 +10,15 @@ import androidx.core.view.forEach
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import by.kirich1409.viewbindingdelegate.viewBinding
 import coil.load
 import com.dart69.mvvm.screens.Screen
 import com.dart69.mvvm.viewmodels.repeatOnStarted
 import com.dart69.plannerokapp.R
+import com.dart69.plannerokapp.core.addListener
 import com.dart69.plannerokapp.core.isSkeletonVisible
-import com.dart69.plannerokapp.core.toDateString
 import com.dart69.plannerokapp.databinding.FragmentEditProfileBinding
-import com.dart69.plannerokapp.profile.domain.models.ProfileDetails
 import dagger.hilt.android.AndroidEntryPoint
 import java.util.Calendar
 
@@ -27,53 +28,44 @@ class EditProfileFragment : Fragment(R.layout.fragment_edit_profile),
     override val binding by viewBinding(FragmentEditProfileBinding::bind)
     override val viewModel: EditProfileViewModel by viewModels()
 
+    private val args by navArgs<EditProfileFragmentArgs>()
+
     private val launcher =
         registerForActivityResult(ActivityResultContracts.PickVisualMedia()) { uri ->
             uri?.toString()?.let(viewModel::uploadPhoto)
+            setAvatar(uri)
         }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) = binding.run {
         super.onViewCreated(view, savedInstanceState)
 
-        editTextBirthdate.setOnClickListener {
-            DatePickerDialog(requireContext()).apply {
-                setOnDateSetListener { _, year, month, dayOfMonth ->
-                    val epoch =
-                        Calendar.getInstance().apply { set(year, month, dayOfMonth) }.timeInMillis
-                    viewModel.updateBirthdate(epoch)
-                }
-                show()
-            }
-        }
+        initializeInputs()
+        initializeListeners()
 
-        imageViewAvatar.setOnClickListener {
-            launcher.launch(
-                PickVisualMediaRequest.Builder()
-                    .setMediaType(ActivityResultContracts.PickVisualMedia.ImageOnly)
-                    .build()
-            )
-        }
 
         toolbar.apply {
             setOnMenuItemClickListener { editProfile() }
             setNavigationOnClickListener { findNavController().navigateUp() }
         }
 
+        setAvatar(args.details.avatarUri)
+
         collectStates()
         collectEvents()
+    }
+
+    private fun setAvatar(data: Any?) = binding.run {
+        imageViewAvatar.load(data) {
+            error(R.drawable.no_avatar_image)
+        }
     }
 
     private fun collectStates() = binding.run {
         repeatOnStarted(viewLifecycleOwner) {
             viewModel.collectStates { state ->
-                editTextBirthdate.setText(state.details.birthdate?.toDateString().orEmpty())
                 toolbar.menu.forEach { it.isVisible = state.isSubmitVisible }
                 textInputName.error = state.nameError?.let(this@EditProfileFragment::getString)
                 root.isSkeletonVisible = state.isInProgress
-                imageViewAvatar.load(state.details.avatarUri) {
-                    error(R.drawable.no_avatar_image)
-                }
-                initializeInputs(state.details)
             }
         }
     }
@@ -84,14 +76,41 @@ class EditProfileFragment : Fragment(R.layout.fragment_edit_profile),
         }
     }
 
-    private fun initializeInputs(details: ProfileDetails) = binding.run {
-        editTextName.setText(details.name)
-        editTextBirthdate.setText(details.birthdate?.toDateString())
+    private fun initializeInputs() = binding.run {
+        val details = args.details
+
+        editTextAboutMe.setText(details.aboutMe)
+        editTextCity.setText(details.city)
         editTextVk.setText(details.vk)
         editTextInstagram.setText(details.instagram)
-        editTextCity.setText(details.city)
-        editTextAboutMe.setText(details.aboutMe)
+        editTextName.setText(details.name)
 
+        editTextAboutMe.addListener(viewModel::updateAboutMe)
+        editTextCity.addListener(viewModel::updateCity)
+        editTextVk.addListener(viewModel::updateVk)
+        editTextInstagram.addListener(viewModel::updateInstagram)
+        editTextName.addListener(viewModel::updateName)
+    }
+
+    private fun initializeListeners() = binding.run {
+        buttonBirthDate.setOnClickListener {
+            DatePickerDialog(requireContext()).apply {
+                setOnDateSetListener { _, year, month, dayOfMonth ->
+                    val epoch = Calendar.getInstance().apply {
+                        set(year, month, dayOfMonth)
+                    }.timeInMillis
+                    viewModel.updateBirthdate(epoch)
+                }
+            }.show()
+        }
+
+        imageViewAvatar.setOnClickListener {
+            launcher.launch(
+                PickVisualMediaRequest.Builder()
+                    .setMediaType(ActivityResultContracts.PickVisualMedia.ImageOnly)
+                    .build()
+            )
+        }
     }
 
     private fun editProfile() = binding.run {

@@ -1,6 +1,7 @@
 package com.dart69.plannerokapp.login.presentation.number
 
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.Fragment
@@ -43,6 +44,11 @@ class NumberFragment : Fragment(R.layout.fragment_number),
         viewModel.next(binding.countryCodePicker.fullNumberWithPlus)
     }
 
+    override fun onResume() {
+        super.onResume()
+        viewModel.checkUserLogged()
+    }
+
     private fun collectStates() = binding.run {
         repeatOnStarted(viewLifecycleOwner) {
             viewModel.collectStates { state ->
@@ -64,6 +70,7 @@ class NumberFragment : Fragment(R.layout.fragment_number),
                 when (event) {
                     is NumberEvent.ShowError -> event.applyOn(requireContext())
                     is NumberEvent.NavigateToCode -> event.applyOn(findNavController())
+                    is NumberEvent.NavigateToProfile -> event.applyOn(findNavController())
                     is NumberEvent.ShowNetworkDialog -> event.applyOn(requireContext(), launcher)
                 }
             }

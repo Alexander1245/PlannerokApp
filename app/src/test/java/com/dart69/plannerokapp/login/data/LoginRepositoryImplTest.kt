@@ -13,18 +13,18 @@ import org.junit.Test
 internal class LoginRepositoryImplTest {
     private lateinit var repository: LoginRepositoryImpl
     private lateinit var fakeAuthRepo: FakeAuthRepo
-    private lateinit var cachedSource: LoginCachedDataSource
+    private lateinit var cachedSource: LoginLocalDataSource
     private lateinit var fakeRemoteSource: FakeLoginRemoteDataSource
 
     @Before
     fun beforeEach() {
         fakeAuthRepo = FakeAuthRepo()
         fakeRemoteSource = FakeLoginRemoteDataSource()
-        cachedSource = LoginCachedDataSource.Implementation()
+        cachedSource = LoginLocalDataSource.Implementation()
         repository = LoginRepositoryImpl(
             dispatchers = DispatchersProvider(),
             remoteDataSource = fakeRemoteSource,
-            cachedDataSource = cachedSource,
+            localDataSource = cachedSource,
             responseWrapper = ResponseWrapperImpl(),
             authRepository = fakeAuthRepo,
             mapper = CredentialsMapper.Companion,

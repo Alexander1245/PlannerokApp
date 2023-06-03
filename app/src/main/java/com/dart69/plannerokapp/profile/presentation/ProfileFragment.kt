@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import by.kirich1409.viewbindingdelegate.viewBinding
 import coil.load
 import com.dart69.mvvm.screens.Screen
@@ -23,12 +24,19 @@ class ProfileFragment : Fragment(R.layout.fragment_profile),
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) = binding.run {
         super.onViewCreated(view, savedInstanceState)
 
+        toolbar.setOnMenuItemClickListener {
+            findNavController().navigate(ProfileFragmentDirections.actionProfileFragmentToEditProfileFragment())
+            true
+        }
+
         repeatOnStarted(viewLifecycleOwner) {
             viewModel.collectStates { state ->
                 state.profile ?: return@collectStates
                 header.textViewPhone.text = state.profile.phone
                 header.textViewUsername.text = state.profile.username
-                header.imageViewAvatar.load(state.profile.avatarUrl)
+                header.imageViewAvatar.load(state.profile.avatarUrl) {
+                    error(R.drawable.no_avatar_image)
+                }
                 details.textViewCity.setVisibleText(state.profile.city)
                 details.textViewZodiac.setVisibleText(state.profile.zodiacSign)
                 details.textViewBirthDate.setVisibleText(state.profile.birthDate?.toDateString())
@@ -37,7 +45,9 @@ class ProfileFragment : Fragment(R.layout.fragment_profile),
         }
 
         repeatOnStarted(viewLifecycleOwner) {
-            viewModel.collectEvents { event -> event.applyOn(requireContext()) }
+            viewModel.collectEvents {
+                    event -> event.applyOn(requireContext())
+            }
         }
 
         Unit

@@ -18,6 +18,8 @@ interface ProfileLocalDataSource {
 
     suspend fun isInitialized(): Boolean
 
+    suspend fun update(updater: suspend (ProfileDto) -> ProfileDto)
+
     class Implementation @Inject constructor(
         private val dataStore: DataStore<Preferences>,
         private val gson: Gson,
@@ -33,6 +35,13 @@ interface ProfileLocalDataSource {
         override suspend fun saveProfile(profile: ProfileDto) {
             dataStore.edit { preferences ->
                 preferences[PROFILE_KEY] = gson.toJson(profile)
+            }
+        }
+
+        override suspend fun update(updater: suspend (ProfileDto) -> ProfileDto) {
+            dataStore.edit { preferences ->
+                val old = gson.fromJson(preferences[PROFILE_KEY], ProfileDto::class.java)
+                preferences[PROFILE_KEY] = gson.toJson(updater(old))
             }
         }
 

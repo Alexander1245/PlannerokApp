@@ -1,9 +1,11 @@
 package com.dart69.plannerokapp.core
 
+import android.widget.EditText
 import android.widget.TextView
 import androidx.annotation.StringRes
-import androidx.core.view.isVisible
+import androidx.core.widget.addTextChangedListener
 import com.dart69.mvvm.strings.StringResource
+import com.dart69.plannerokapp.R
 import com.faltenreich.skeletonlayout.SkeletonLayout
 import java.text.SimpleDateFormat
 import java.util.Date
@@ -30,16 +32,24 @@ fun Char.isEnglishLetter(): Boolean = this in 'a'..'z' || this in 'A'..'Z'
 fun StringResource.orNull(): StringResource? = if(this is StringResource.Empty) null else this
 
 fun TextView.setVisibleText(@StringRes resId: Int?) {
-    isVisible = resId != null
-    resId?.let(this::setText)
+    val text = resId ?: R.string.unknown
+    setText(text)
 }
 
 fun TextView.setVisibleText(text: String?) {
-    isVisible = text != null
-    text?.let(this::setText)
+    text?.let(this::setText) ?: setText(R.string.unknown)
 }
 
 fun Long.toDateString(): String {
     val format = SimpleDateFormat("dd MMMM, yyyy", Locale.getDefault())
     return format.format(Date(this))
 }
+
+fun EditText.addListener(listener: (String) -> Unit) {
+    addTextChangedListener {
+        it?.toString()?.let(listener::invoke)
+    }
+}
+
+fun String.extension() =
+    substring(lastIndexOf(".") + 1);

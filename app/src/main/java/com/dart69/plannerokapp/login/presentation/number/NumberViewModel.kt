@@ -7,6 +7,7 @@ import com.dart69.mvvm.viewmodels.CommunicatorViewModel
 import com.dart69.plannerokapp.R
 import com.dart69.plannerokapp.login.domain.LoginRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import java.util.concurrent.atomic.AtomicBoolean
@@ -17,6 +18,16 @@ class NumberViewModel @Inject constructor(
     private val repository: LoginRepository,
 ) : CommunicatorViewModel<NumberViewModel.State, NumberEvent>(State()) {
     private val isCodeAlreadySent = AtomicBoolean(false)
+    private var job: Job? = null
+
+    fun checkUserLogged() {
+        if (job != null) return
+        job = performAsync {
+            if (repository.isLoggedIn()) {
+                events.emit(NumberEvent.NavigateToProfile)
+            }
+        }
+    }
 
     fun selectCountryNameCode(countryName: String) {
         states.update { state ->
@@ -46,7 +57,7 @@ class NumberViewModel @Inject constructor(
         }
     }
 
-    private fun performAsync(block: suspend () -> Unit) {
+    private fun performAsync(block: suspend () -> Unit) =
         viewModelScope.launch {
             try {
                 states.update { it.copy(isProgressVisible = true) }
@@ -61,7 +72,7 @@ class NumberViewModel @Inject constructor(
                 states.update { it.copy(isProgressVisible = false) }
             }
         }
-    }
+
 
     data class State(
         val hasSelectedCountryNameCode: Boolean = false,

@@ -14,34 +14,29 @@ import javax.inject.Inject
 class LoginRepositoryImpl @Inject constructor(
     private val dispatchers: DispatchersProvider,
     private val remoteDataSource: LoginRemoteDataSource,
-    private val cachedDataSource: LoginCachedDataSource,
+    private val localDataSource: LoginLocalDataSource,
     private val responseWrapper: ResponseWrapper,
     private val authRepository: AuthRepository,
     private val mapper: CredentialsMapper,
 ) : LoginRepository {
     override suspend fun sendAuthCode(phone: String): Boolean =
         withContext(dispatchers.provideBackgroundDispatcher()) {
-            cachedDataSource.savePhone(phone)
             responseWrapper.wrap {
                 remoteDataSource.sendAuthCode(PhoneDto(phone))
             }.is_success
         }
 
-    override suspend fun verifyIsUserExists(authCode: Int): Boolean =
+    override suspend fun isLoggedIn(): Boolean = localDataSource.isLoggedIn()
+
+    override suspend fun verifyIsUserExists(phone: String, authCode: Int): Boolean =
         withContext(dispatchers.provideBackgroundDispatcher()) {
             val credentials = responseWrapper.wrap {
-                remoteDataSource.checkAuthCode(
-                    LoginDto(
-                        cachedDataSource.loadPhone()
-                            ?: error("You must call sendAuthCode before verification"),
-                        authCode,
-                    )
-                )
+                remoteDataSource.checkAuthCode(LoginDto(phone, authCode))
             }
             mapper.map(credentials)?.let { token ->
                 authRepository.updateTokens(token)
             }
-            credentials.is_user_exists
+            credentials.is_user_exists.also { localDataSource.setUserLogged(it) }
         }
 
     override suspend fun register(phone: String, name: String, username: String) =
@@ -50,6 +45,7 @@ class LoginRepositoryImpl @Inject constructor(
                 remoteDataSource.register(RegisterDto(phone, name, username))
             }
             authRepository.updateTokens(requireNotNull(mapper.map(credentials)))
+            localDataSource.loginUser()
         }
 
     override fun checkCodeValidity(authCode: Int): Boolean =

@@ -10,9 +10,11 @@ interface LoginRepository {
     /**
      * @return true if the user is registered, false otherwise
      * */
-    suspend fun verifyIsUserExists(authCode: Int): Boolean
+    suspend fun verifyIsUserExists(phone: String, authCode: Int): Boolean
 
     suspend fun register(phone: String, name: String, username: String)
+
+    suspend fun isLoggedIn(): Boolean
 
     fun checkCodeValidity(authCode: Int): Boolean
     companion object {

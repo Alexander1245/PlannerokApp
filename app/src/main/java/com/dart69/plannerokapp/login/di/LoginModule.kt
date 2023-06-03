@@ -3,7 +3,7 @@ package com.dart69.plannerokapp.login.di
 import com.dart69.data.response.wrapper.ResponseWrapper
 import com.dart69.plannerokapp.core.data.ResponseWrapperImpl
 import com.dart69.plannerokapp.login.data.CredentialsMapper
-import com.dart69.plannerokapp.login.data.LoginCachedDataSource
+import com.dart69.plannerokapp.login.data.LoginLocalDataSource
 import com.dart69.plannerokapp.login.data.LoginRemoteDataSource
 import com.dart69.plannerokapp.login.data.LoginRepositoryImpl
 import com.dart69.plannerokapp.login.domain.LoginRepository
@@ -24,8 +24,8 @@ object LoginModule {
 
     @Provides
     fun provideCachedDataSource(
-        impl: LoginCachedDataSource.Implementation
-    ): LoginCachedDataSource = impl
+        impl: LoginLocalDataSource.Implementation
+    ): LoginLocalDataSource = impl
 
     @Provides
     fun provideResponseWrapper(): ResponseWrapper = ResponseWrapperImpl()

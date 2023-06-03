@@ -27,6 +27,7 @@
     <string name="profile">Profile</string>
     <string name="about_me">About me</string>
 
+    <string name="unknown">Unknown</string>
 
     <string name="aquarius">Aquarius</string>
     <string name="pisces">Pisces</string>
@@ -40,4 +41,10 @@
     <string name="scorpio">Scorpio</string>
     <string name="sagittarius">Sagittarius</string>
     <string name="capricorn">Capricorn</string>
+    <string name="edit_profile">Edit profile</string>
+    <string name="city">City</string>
+    <string name="instagram">Instagram</string>
+    <string name="vk">VK</string>
+    <string name="birthdate">Birthdate</string>
+    <string name="name_invalid">Name is incorrect</string>
 </resources>

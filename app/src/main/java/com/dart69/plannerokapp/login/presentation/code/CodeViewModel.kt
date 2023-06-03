@@ -20,8 +20,7 @@ class CodeViewModel @Inject constructor(
 
     fun finish() {
         performAsync {
-            //TODO: Bug here
-            val isUserExists = repository.verifyIsUserExists(states.value.code)
+            val isUserExists = repository.verifyIsUserExists(phone, states.value.code)
             val event = if (isUserExists) {
                 CodeEvent.NavigateToProfile
             } else {

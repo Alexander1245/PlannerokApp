@@ -55,4 +55,12 @@ sealed interface NumberEvent : Event {
                 NumberFragmentDirections.actionNumberFragmentToCodeFragment(phone)
             )
     }
+
+    object NavigateToProfile : NumberEvent, NavigationEvent {
+        override fun applyOn(navController: NavController) {
+            navController.navigate(
+                NumberFragmentDirections.actionNumberFragmentToProfileFragment()
+            )
+        }
+    }
 }

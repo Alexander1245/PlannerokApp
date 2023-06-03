@@ -46,7 +46,9 @@ object ProfileModule {
     fun provideMapper(impl: ProfileMapper.Implementation): ProfileMapper = impl
 
     @Provides
-    fun provideEncoder(): ImageEncoder = ImageEncoder.Implementation(JPEG_QUALITY)
+    fun provideEncoder(
+        @ApplicationContext context: Context,
+    ): ImageEncoder = ImageEncoder.Implementation(JPEG_QUALITY, context)
 
     @Provides
     fun provideLocalDataSource(

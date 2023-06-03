@@ -16,8 +16,10 @@ class FakeLoginRepo : LoginRepository {
         sendCalls.incrementAndGet()
     }
 
-    override suspend fun verifyIsUserExists(authCode: Int): Boolean = isExists
+    override suspend fun verifyIsUserExists(phone: String, authCode: Int): Boolean = isExists
 
     override suspend fun register(phone: String, name: String, username: String) {}
+    override suspend fun isLoggedIn(): Boolean = isExists
+
     override fun checkCodeValidity(authCode: Int): Boolean = true
 }

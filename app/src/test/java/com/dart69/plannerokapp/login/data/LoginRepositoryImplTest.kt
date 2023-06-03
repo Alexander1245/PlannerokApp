@@ -13,18 +13,18 @@ import org.junit.Test
 internal class LoginRepositoryImplTest {
     private lateinit var repository: LoginRepositoryImpl
     private lateinit var fakeAuthRepo: FakeAuthRepo
-    private lateinit var cachedSource: LoginLocalDataSource
+    private lateinit var localSource: LoginLocalDataSource
     private lateinit var fakeRemoteSource: FakeLoginRemoteDataSource
 
     @Before
     fun beforeEach() {
         fakeAuthRepo = FakeAuthRepo()
         fakeRemoteSource = FakeLoginRemoteDataSource()
-        cachedSource = LoginLocalDataSource.Implementation()
+        localSource = FakeLocalSource()
         repository = LoginRepositoryImpl(
             dispatchers = DispatchersProvider(),
             remoteDataSource = fakeRemoteSource,
-            localDataSource = cachedSource,
+            localDataSource = localSource,
             responseWrapper = ResponseWrapperImpl(),
             authRepository = fakeAuthRepo,
             mapper = CredentialsMapper.Companion,
@@ -43,16 +43,11 @@ internal class LoginRepositoryImplTest {
         assertFalse(repository.sendAuthCode("123"))
     }
 
-    @Test(expected = IllegalStateException::class)
-    fun `if the user doesn't send auth code the exception is throws`() = runBlocking<Unit> {
-        repository.verifyIsUserExists(FakeLoginRemoteDataSource.CORRECT_AUTH_CODE)
-    }
-
     @Test
     fun `if the user is exists tokens will be saved`() = runBlocking {
         `sendAuthCode returns true if success`()
         fakeRemoteSource.isUserExists = true
-        assertTrue(repository.verifyIsUserExists(FakeLoginRemoteDataSource.CORRECT_AUTH_CODE))
+        assertTrue(repository.verifyIsUserExists("123", FakeLoginRemoteDataSource.CORRECT_AUTH_CODE))
         assertEquals(FakeTokenChecker.NORMAL_TOKEN, fakeAuthRepo.loadTokens())
     }
 
@@ -60,7 +55,7 @@ internal class LoginRepositoryImplTest {
     fun `if the user isn't exists tokens will not be saved`() = runBlocking {
         `sendAuthCode returns true if success`()
         fakeRemoteSource.isUserExists = false
-        assertFalse(repository.verifyIsUserExists(FakeLoginRemoteDataSource.CORRECT_AUTH_CODE))
+        assertFalse(repository.verifyIsUserExists("123", FakeLoginRemoteDataSource.CORRECT_AUTH_CODE))
         assertEquals(FakeTokenChecker.EXPIRED_TOKEN, fakeAuthRepo.loadTokens())
     }
 

@@ -48,4 +48,5 @@
     <string name="birthdate">Birthdate</string>
     <string name="name_invalid">Name is incorrect</string>
     <string name="click_here_to_edit_birthdate">Click here to edit birthdate</string>
+    <string name="permission_required">Permission is required!</string>
 </resources>

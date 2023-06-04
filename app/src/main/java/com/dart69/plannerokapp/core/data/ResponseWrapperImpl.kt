@@ -1,5 +1,6 @@
 package com.dart69.plannerokapp.core.data
 
+import android.util.Log
 import com.dart69.core.errors.NetworkTimeOutError
 import com.dart69.core.errors.NoNetworkError
 import com.dart69.data.response.wrapper.ResponseWrapper
@@ -14,6 +15,7 @@ class ResponseWrapperImpl @Inject constructor() : ResponseWrapper {
         block: suspend () -> Response<T>,
     ): T = wrapNetworkErrors {
         val response = block()
+        Log.d("ASD", response.errorBody()?.string().orEmpty())
         if (response.isSuccessful) {
             response.body()!!
         } else {

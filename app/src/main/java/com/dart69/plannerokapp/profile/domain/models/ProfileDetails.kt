@@ -13,6 +13,7 @@ data class ProfileDetails(
     val instagram: String?,
     val aboutMe: String?,
     val avatarUri: String?,
+    val base64: String? = null,
 ): Parcelable {
 
     companion object {
@@ -24,7 +25,8 @@ data class ProfileDetails(
             vk = null,
             instagram = null,
             aboutMe = null,
-            avatarUri = ""
+            avatarUri = "",
+            base64 = null,
         )
     }
 }

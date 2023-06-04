@@ -37,7 +37,11 @@ fun TextView.setVisibleText(@StringRes resId: Int?) {
 }
 
 fun TextView.setVisibleText(text: String?) {
-    text?.let(this::setText) ?: setText(R.string.unknown)
+    if (text.isNullOrBlank()) {
+        setText(R.string.unknown)
+    } else {
+        setText(text)
+    }
 }
 
 fun Long.toDateString(pattern: String = "yyyy-MM-dd"): String {
@@ -57,4 +61,4 @@ fun EditText.addListener(listener: (String) -> Unit) {
 }
 
 fun String.extension() =
-    substring(lastIndexOf(".") + 1);
+    substring(lastIndexOf(".") + 1)

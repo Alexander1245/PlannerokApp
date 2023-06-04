@@ -1,7 +1,6 @@
 package com.dart69.plannerokapp.profile.presentation
 
 import android.app.DatePickerDialog
-import android.net.Uri
 import android.os.Bundle
 import android.view.View
 import androidx.activity.result.PickVisualMediaRequest
@@ -21,6 +20,7 @@ import com.dart69.plannerokapp.core.isSkeletonVisible
 import com.dart69.plannerokapp.databinding.FragmentEditProfileBinding
 import dagger.hilt.android.AndroidEntryPoint
 import java.util.Calendar
+
 
 @AndroidEntryPoint
 class EditProfileFragment : Fragment(R.layout.fragment_edit_profile),
@@ -49,7 +49,6 @@ class EditProfileFragment : Fragment(R.layout.fragment_edit_profile),
         }
 
         setAvatar(args.details.avatarUri)
-
         collectStates()
         collectEvents()
     }

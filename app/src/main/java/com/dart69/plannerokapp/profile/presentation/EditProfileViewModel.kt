@@ -1,5 +1,6 @@
 package com.dart69.plannerokapp.profile.presentation
 
+import android.util.Log
 import androidx.annotation.StringRes
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.viewModelScope
@@ -28,7 +29,9 @@ class EditProfileViewModel @Inject constructor(
             it.copy(
                 details = EditProfileFragmentArgs.fromSavedStateHandle(
                     savedStateHandle
-                ).details
+                ).details.also {
+                    Log.d("ASD", it.toString())
+                }
             )
         }
     }

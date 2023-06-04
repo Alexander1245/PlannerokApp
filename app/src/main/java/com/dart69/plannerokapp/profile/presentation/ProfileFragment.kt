@@ -45,7 +45,7 @@ class ProfileFragment : Fragment(R.layout.fragment_profile),
 
         repeatOnStarted(viewLifecycleOwner) {
             viewModel.collectEvents { event ->
-                when(event) {
+                when (event) {
                     is ProfileEvent.EditProfile -> event.applyOn(findNavController())
                     is ProfileEvent.ShowError -> event.applyOn(requireContext())
                 }

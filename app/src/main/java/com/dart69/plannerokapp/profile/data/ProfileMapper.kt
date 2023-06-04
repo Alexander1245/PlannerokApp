@@ -11,15 +11,11 @@ import com.dart69.plannerokapp.profile.presentation.ZodiacSignProvider
 import javax.inject.Inject
 
 interface ProfileMapper : Mapper<ProfileDto, Profile> {
-    fun updateDetails(dto: ProfileDto, details: ProfileDetails): ProfileDto
 
-    fun toDetails(dto: ProfileDto): ProfileDetails
-
-    fun toRequest(details: ProfileDetails): UpdateRequest
+    fun map(details: ProfileDetails, base64: ImageEncoder.BaseData?): UpdateRequest
 
     class Implementation @Inject constructor(
         private val zodiacSignProvider: ZodiacSignProvider,
-        private val encoder: ImageEncoder,
     ) : ProfileMapper {
         override fun map(from: ProfileDto): Profile {
             val epoch = from.birthday?.toEpoch()
@@ -41,33 +37,9 @@ interface ProfileMapper : Mapper<ProfileDto, Profile> {
                 )
         }
 
-        override fun toDetails(dto: ProfileDto): ProfileDetails =
-            ProfileDetails(
-                name = dto.name,
-                username = dto.username,
-                birthdate = dto.birthday,
-                city = dto.city,
-                vk = dto.vk,
-                instagram = dto.instagram,
-                aboutMe = dto.status,
-                avatarUri = dto.avatar.orEmpty(),
-            )
-
-        override fun updateDetails(dto: ProfileDto, details: ProfileDetails): ProfileDto =
-            dto.copy(
-                avatar = details.avatarUri,
-                name = details.name,
-                vk = details.vk,
-                instagram = details.instagram,
-                birthday = details.birthdate,
-                city = details.city,
-                status = details.aboutMe,
-            )
-
-        override fun toRequest(details: ProfileDetails): UpdateRequest {
-            val data = details.avatarUri?.let(encoder::toBase64)
+        override fun map(details: ProfileDetails, base64: ImageEncoder.BaseData?): UpdateRequest {
             return UpdateRequest(
-                avatar = AvatarRequest.from(base_64 = data?.base64, filename = data?.name),
+                avatar = AvatarRequest.from(base_64 = base64?.base64, filename = base64?.name),
                 birthday = details.birthdate,
                 city = details.city,
                 instagram = details.instagram,
